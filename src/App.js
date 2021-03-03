@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Navbar from "./components/layouts/Navbar";
 
 class App extends Component {
 	// foo = () => "BarT";
@@ -18,7 +19,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<h1>MY APP</h1>
+				<Navbar />
 				{loading
 					? <h4>Loading</h4>
 					: <p>
