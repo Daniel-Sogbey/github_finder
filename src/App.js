@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+	// foo = () => "BarT";
+
+	render() {
+		const name = "John Doe";
+
+		const foo = () => "Bar";
+
+		const loading = false;
+		const showName = true;
+
+		// if (loading) {
+		// return <h4>Loading</h4>;
+		// }
+
+		return (
+			<div className="App">
+				<h1>MY APP</h1>
+				{loading
+					? <h4>Loading</h4>
+					: <p>
+							Hello {showName && name.toUpperCase()}
+						</p>}
+			</div>
+		);
+	}
 }
 
 export default App;
