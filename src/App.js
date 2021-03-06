@@ -3,13 +3,14 @@ import "./App.css";
 import Navbar from "./components/layouts/Navbar";
 import Users from "./components/users/Users";
 import Search from "./components/users/Search";
+import Alert from "./components/layouts/Alert";
 import axios from "axios";
 
 class App extends Component {
 	state = {
 		users: [],
 		loading: false,
-		notFound: "",
+		alert: {},
 	};
 
 	async componentDidMount() {
@@ -31,6 +32,8 @@ class App extends Component {
 		// this.setState({ users: [...res.data], loading: false });
 	}
 
+	//Make HTTP request to GITHUB API
+
 	searchUsersHandler = async searchItem => {
 		this.setState({ loading: true });
 
@@ -44,7 +47,7 @@ class App extends Component {
 
 		if (res.data.items.length === 0) {
 			this.setState({
-				notFound: `No user with the name "${searchItem}" found.`,
+				alert: `No user with the name "${searchItem}" found.`,
 			});
 		}
 
@@ -62,27 +65,29 @@ class App extends Component {
 		});
 	};
 
+	// Set Alert
+
+	setAlertHandler = (msg, type) => {
+		this.setState({ alert: { msg, type } });
+		setTimeout(() => {
+			this.setState({ alert: null });
+		}, 5000);
+	};
+
 	render() {
-		const { loading, users, notFound } = this.state;
+		const { loading, users, alert } = this.state;
 		return (
 			<div className="App">
 				<Navbar />
 				<div className="container">
+					<Alert alert={alert} />
 					<Search
 						searchUsers={this.searchUsersHandler}
 						clearUsers={this.clearUsersHandler}
 						users={users}
+						setAlert={this.setAlertHandler}
 					/>
-					{users.length === 0
-						? <p
-								style={{
-									margin: "auto",
-									textAlign: "center",
-									fontSize: "30px",
-								}}>
-								{notFound}
-							</p>
-						: null}
+
 					<Users users={users} loading={loading} />
 				</div>
 			</div>
