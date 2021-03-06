@@ -53,23 +53,37 @@ class App extends Component {
 		this.setState({ users: [...res.data.items], loading: false });
 	};
 
+	//Clear users from state
+
+	clearUsersHandler = () => {
+		this.setState({
+			users: [],
+			loading: false,
+		});
+	};
+
 	render() {
+		const { loading, users, notFound } = this.state;
 		return (
 			<div className="App">
 				<Navbar />
 				<div className="container">
-					<Search searchUsers={this.searchUsersHandler} />
-					{this.state.users.length === 0
+					<Search
+						searchUsers={this.searchUsersHandler}
+						clearUsers={this.clearUsersHandler}
+						users={users}
+					/>
+					{users.length === 0
 						? <p
 								style={{
 									margin: "auto",
 									textAlign: "center",
 									fontSize: "30px",
 								}}>
-								{this.state.notFound}
+								{notFound}
 							</p>
 						: null}
-					<Users users={this.state.users} loading={this.state.loading} />
+					<Users users={users} loading={loading} />
 				</div>
 			</div>
 		);
