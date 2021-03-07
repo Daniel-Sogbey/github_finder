@@ -120,7 +120,7 @@ class App extends Component {
 								exact
 								path="/user/:login"
 								render={props =>
-									<User {...props} getUser={this.getUser} user={user} />}
+									<User {...props} getUser={this.getUser} user={user} loading ={loading} />}
 							/>
 						</Switch>
 					</div>
