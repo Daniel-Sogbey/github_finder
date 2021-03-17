@@ -24,7 +24,9 @@ class Search extends Component {
 			this.props.setAlert("Please enter a username", "light");
 		} else {
 			this.props.searchUsers(this.state.searchItem);
-			this.setState({ searchItem: "" });
+			if (this.props.users.length !== 0) {
+				this.setState({ searchItem: "" });
+			}
 		}
 	};
 
