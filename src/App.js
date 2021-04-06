@@ -9,6 +9,8 @@ import Alert from "./components/layouts/Alert";
 import About from "./components/Pages/About";
 import axios from "axios";
 
+import GithubState from "./context/github/GithubState";
+
 const App = () => {
 	// state = {
 	// users: [],
@@ -115,44 +117,46 @@ const App = () => {
 	};
 
 	return (
-		<BrowserRouter>
-			<div className="App">
-				<Navbar />
-				<div className="container">
-					<Alert alert={alert} />
-					<Switch>
-						<Route
-							exact
-							path="/"
-							render={props =>
-								<Fragment>
-									<Search
-										searchUsers={searchUsersHandler}
-										clearUsers={clearUsersHandler}
-										users={users}
-										setAlert={setAlertHandler}
-									/>
-									<Users users={users} loading={loading} />
-								</Fragment>}
-						/>
-						<Route exact path="/about" component={About} />
-						<Route
-							exact
-							path="/user/:login"
-							render={props =>
-								<User
-									{...props}
-									getUser={getUser}
-									user={user}
-									loading={loading}
-									getUserRepos={getUserRepos}
-									repos={repos}
-								/>}
-						/>
-					</Switch>
+		<GithubState>
+			<BrowserRouter>
+				<div className="App">
+					<Navbar />
+					<div className="container">
+						<Alert alert={alert} />
+						<Switch>
+							<Route
+								exact
+								path="/"
+								render={props =>
+									<Fragment>
+										<Search
+											searchUsers={searchUsersHandler}
+											clearUsers={clearUsersHandler}
+											users={users}
+											setAlert={setAlertHandler}
+										/>
+										<Users users={users} loading={loading} />
+									</Fragment>}
+							/>
+							<Route exact path="/about" component={About} />
+							<Route
+								exact
+								path="/user/:login"
+								render={props =>
+									<User
+										{...props}
+										getUser={getUser}
+										user={user}
+										loading={loading}
+										getUserRepos={getUserRepos}
+										repos={repos}
+									/>}
+							/>
+						</Switch>
+					</div>
 				</div>
-			</div>
-		</BrowserRouter>
+			</BrowserRouter>
+		</GithubState>
 	);
 };
 export default App;
