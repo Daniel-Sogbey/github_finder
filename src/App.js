@@ -47,29 +47,6 @@ const App = () => {
 
 	//Make HTTP request to GITHUB API
 
-	const searchUsersHandler = async searchItem => {
-		setLoading(true);
-
-		const res = await axios.get(
-			`https://api.github.com/search/users?q=${searchItem}&client_id=${process
-				.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env
-				.REACT_APP_GITHUB_CLIENT_SECRET}`
-		);
-		console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
-		console.log(res.data);
-
-		if (res.data.items.length === 0) {
-			setAlert({
-				alert: `No user with the name "${searchItem}" found.`,
-			});
-		}
-
-		// console.log(this.state.notFound);
-		console.log(users);
-		setUsers(res.data.items);
-		setLoading(false);
-	};
-
 	// Get single Github user
 
 	const getUser = async username => {
@@ -112,7 +89,7 @@ const App = () => {
 	const setAlertHandler = (msg, type) => {
 		setAlert({ msg, type });
 		setTimeout(() => {
-			this.setState(null);
+			setAlert(null);
 		}, 5000);
 	};
 
@@ -130,7 +107,6 @@ const App = () => {
 								render={props =>
 									<Fragment>
 										<Search
-											searchUsers={searchUsersHandler}
 											clearUsers={clearUsersHandler}
 											users={users}
 											setAlert={setAlertHandler}
