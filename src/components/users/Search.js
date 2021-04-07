@@ -5,10 +5,6 @@ import GithubContext from "../../context/github/githubContext";
 const Search = ({ users, clearUsers, setAlert }) => {
 	const githubContext = useContext(GithubContext);
 
-	// state = {
-	// searchItem: "",
-	// };
-
 	const [searchItem, setSearchItem] = useState("");
 
 	const onSearchItemChanged = event => {
